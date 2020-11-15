@@ -134,14 +134,14 @@ class App extends Component {
 
         <div className="table-container">
           <div className="table-row">
-            <p className="label">POOL </p>
+            <p className="label">Strategy </p>
             <p className="label">TVL</p>
-            <p className="label">Base APY</p>
-            <p className="label">Profit</p>
-            <p className="label">PS ($ IN) </p>
-            <p className="label">Pickle %</p>
-            <p className="label">PS ($ OUT) </p>
-            <p className="label">NET LOSS </p>
+            <p className="label">Gross APY</p>
+            <p className="label">Gross Income</p>
+            <p className="label">Fee Income </p>
+            <p className="label">Rewards %</p>
+            <p className="label">Rewards Cost</p>
+            <p className="label">Net Margin </p>
             <p className="label">Breakeven </p>
           </div>
           <div className="table-row">
