@@ -148,7 +148,7 @@ class App extends Component {
           <div className="table-row">
            <p className="jars">PICKLE/ETH</p>
 
-           <p className="jars">${numberWithCommas(this.state.tvl["liquidity"])}</p>
+           <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl["liquidity"]))}</p>
            <p className="jars">0%</p>
 
            <p className="jars">$0</p>
@@ -174,7 +174,7 @@ class App extends Component {
 
            return  (<div key={jar.name} className="table-row">
            <p className="jars">{jar.label}</p>
-           <p className="jars">${numberWithCommas(this.state.tvl[jar.name])}</p>
+           <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl[jar.name]))}</p>
 
            <p className="jars">{performance * 100}%</p>
            <p className="jars">${numberWithCommas(yieldDollars)}</p>

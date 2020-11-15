@@ -14,7 +14,7 @@ export function numberWithCommas(x) {
 
 
 export function roundTo2Dec(x) {
-  return (Math.round(x * 100) / 100).toFixed(2);
+  return Math.round(x)
 }
 
 
