@@ -1,6 +1,7 @@
 .App {
   display: flex;
   flex-direction: column;
+  text-align: right;
 }
 .pickle-color {
   color: #26ff91;
@@ -74,10 +75,9 @@ body {
   text-decoration: underline;
   font-size: 20px;
   color: white;
-  padding-left: 30px;
+  padding-right: 30px;
   display: inline-block;
   width: 100px;
-  margin-top: 0px;
 }
 .total {
   font-weight: bold;
@@ -89,7 +89,7 @@ body {
 }
 .jars {
   color: white;
-  padding-left: 30px;
+  padding-right: 30px;
   display: inline-block;
   width: 100px;
 }

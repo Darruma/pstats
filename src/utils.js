@@ -39,7 +39,6 @@ export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liqui
     result.psin += psin
 
     let pickle_rewards = Number(perc_rewards[j.name])
-    console.log(pickle_rewards)
     result.rewards += Number(pickle_rewards)
     result.out += (pickle_rewards * one_percent_rewards)
 

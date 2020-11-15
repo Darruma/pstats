@@ -103,7 +103,6 @@ class App extends Component {
         net_loss:liquidity_out
 
       })
-    console.log(totals)
    
     return (
       <div className="App">
@@ -138,12 +137,12 @@ class App extends Component {
             <p className="label">POOL </p>
             <p className="label">TVL</p>
             <p className="label">Base APY</p>
-            <p className="label">Yield</p>
+            <p className="label">Profit</p>
             <p className="label">PS ($ IN) </p>
             <p className="label">Pickle %</p>
             <p className="label">PS ($ OUT) </p>
             <p className="label">NET LOSS </p>
-            <p className="label">Breakeven TVL </p>
+            <p className="label">Breakeven </p>
           </div>
           <div className="table-row">
            <p className="jars">PICKLE/ETH</p>
