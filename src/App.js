@@ -194,8 +194,8 @@ class App extends Component {
             <p className="jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
             <p className="jars"> {totals.rewards}%</p>
             <p className="jars">${numberWithCommas(roundTo2Dec(totals.out))} </p>
-            <p className="jars">${numberWithCommas(roundTo2Dec(totals.net_loss))}</p>
-            <p className="jars">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
+            <p className="jars red">${numberWithCommas(roundTo2Dec(totals.net_loss))}</p>
+            <p className="jars blue">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
          </div>
         
          </div>
