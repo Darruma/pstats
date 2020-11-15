@@ -1,38 +1,92 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+.pickle-color {
+  color: #26ff91;
+  font-size: 30px;
+  text-align: center;
+}
+body {
+  background-color: #0e1d15;
+}
+.container {
+  border: #26ff91 2px solid;
+  margin: 0 auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  color: white;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.info-name {
+  font-size: 20px;
+}
+.info-value {
+  font-size: 20px;
+}
+
+.table-container {
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  border: #26ff91 2px solid;
+  color: white;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+.pool-info{
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+
   color: white;
 }
+.red {
+  color: red !important;
+}
+.blue {
+  color: lightblue !important;
+}
+.pickle-title {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 30px;
+}
+.pool {
+  padding-left: 30px;
+  display: inline-block;
 
-.App-link {
-  color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.label {
+  text-decoration: underline;
+  font-size: 20px;
+  color: white;
+  padding-left: 30px;
+  display: inline-block;
+  width: 100px;
+  margin-top: 0px;
+}
+.tvl-info {
+  display: flex;
+  flex-direction: column;
+  color: #26ff91;
+}
+.jars {
+  color: white;
+  padding-left: 30px;
+  display: inline-block;
+  width: 100px;
 }
