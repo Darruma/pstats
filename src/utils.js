@@ -18,20 +18,19 @@ export function roundTo2Dec(x) {
 }
 
 
-export function getJarTotals(tvlData,perf,one_percent_rewards) {
+export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liquidity) {
   let result = {
-    tvl:0,
+    tvl:liquidity.tvl,
     yieldDollars:0,
     psin:0,
-    rewards:0,
-    out:0,
-    net_loss:0,
+    rewards:liquidity.rewards,
+    out:liquidity.out,
+    net_loss:liquidity.net_loss,
     breakeven:0
   }
   getJars().forEach(j => {
     let tvlNum = tvlData[j.name]
     result.tvl += tvlNum
-
     let performance = Number(perf[j.name ]) / 100
     let yieldDollars = roundTo2Dec((tvlNum * performance) / 52)
     result.yieldDollars += Number(yieldDollars)
@@ -39,8 +38,9 @@ export function getJarTotals(tvlData,perf,one_percent_rewards) {
     let psin = yieldDollars * 0.275;
     result.psin += psin
 
-    let pickle_rewards = j.reward_perc
-    result.rewards += pickle_rewards
+    let pickle_rewards = Number(perc_rewards[j.name])
+    console.log(pickle_rewards)
+    result.rewards += Number(pickle_rewards)
     result.out += (pickle_rewards * one_percent_rewards)
 
     let net_loss = Math.abs(psin - (pickle_rewards * one_percent_rewards))
@@ -64,40 +64,34 @@ export function getPerformance(jar_name) {
  }
 
  let jars = [
+
 {
   label:"RENBTC",
   name:"renbtccrv",
-  reward_perc:8
 
 },
 {
    label:"WBTC/ETH",
    name:"wbtc-eth",
-   reward_perc:5
  },
 {
   label:"PDAI",
   name:"cdai",
-  reward_perc:6
 },
 {
   label:"USDC/ETH",
   name:"usdc-eth",
-  reward_perc: 4
 },{
   label:"3POOL",
   name:"3poolcrv",
-  reward_perc:4,
 },
 {
   label:"USDT/ETH",
   name:"usdt-eth",
-  reward_perc: 4
 },
 {
   label:"DAI/ETH",
   name:"dai-eth",
-  reward_perc: 4
 }
 ]
 
