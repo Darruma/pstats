@@ -150,12 +150,12 @@ class App extends Component {
            <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl["liquidity"]))}</p>
            <p className="jars">0%</p>
 
-           <p className="jars">$0</p>
-           <p className="jars">$0</p>
+           <p className="green jars">$0</p>
+           <p className="green jars">$0</p>
 
            <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
-           <p className="jars">${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
            <p className="red jars">${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
+           <p className=" jars">-${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
           
           <p className="blue jars">$0</p>
 
@@ -176,11 +176,11 @@ class App extends Component {
            <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl[jar.name]))}</p>
 
            <p className="jars">{performance * 100}%</p>
-           <p className="jars">${numberWithCommas(yieldDollars)}</p>
-           <p className="jars">${numberWithCommas(roundTo2Dec(psin))}</p>
+           <p className="green jars">${numberWithCommas(yieldDollars)}</p>
+           <p className="green jars">${numberWithCommas(roundTo2Dec(psin))}</p>
            <p className="jars"> {pickle_rewards}% </p>
-           <p className="jars">${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))}</p>
-           <p className="red jars">${numberWithCommas(roundTo2Dec(net_loss))}</p>
+           <p className="jars red">${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))}</p>
+           <p className=" jars">-${numberWithCommas(roundTo2Dec(net_loss))}</p>
           <p className="blue jars">${numberWithCommas(roundTo2Dec(breakeven_tvl))}</p>
 
          </div>)
@@ -189,11 +189,11 @@ class App extends Component {
             <p className="jars"> TOTAL</p>
             <p className="jars"> ${numberWithCommas(roundTo2Dec(totals.tvl))} </p>
             <p className="jars">N/A</p>
-            <p className="jars">${numberWithCommas(roundTo2Dec(totals.yieldDollars))}</p>
-            <p className="jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
-            <p className="jars"> {totals.rewards}%</p>
-            <p className="jars">${numberWithCommas(roundTo2Dec(totals.out))} </p>
-            <p className="jars red">${numberWithCommas(roundTo2Dec(totals.net_loss))}</p>
+            <p className=" green jars">${numberWithCommas(roundTo2Dec(totals.yieldDollars))}</p>
+            <p className=" green jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
+            <p className="jars "> {totals.rewards}%</p>
+            <p className="jars red">${numberWithCommas(roundTo2Dec(totals.out))} </p>
+            <p className="jars ">-${numberWithCommas(roundTo2Dec(totals.net_loss))}</p>
             <p className="jars blue">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
          </div>
         

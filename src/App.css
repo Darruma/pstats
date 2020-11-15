@@ -93,3 +93,9 @@ body {
   display: inline-block;
   width: 100px;
 }
+.perc {
+  background-color: green;
+}
+.green {
+  color: #26ff91 !important;
+}
