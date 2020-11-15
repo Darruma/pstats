@@ -16,8 +16,40 @@ export function numberWithCommas(x) {
 export function roundTo2Dec(x) {
   return (Math.round(x * 100) / 100).toFixed(2);
 }
-export function numberFromCommas(x) {
-  parseInt(x.replace(/,/g, ''), 10)
+
+
+export function getJarTotals(tvlData,perf,one_percent_rewards) {
+  let result = {
+    tvl:0,
+    yieldDollars:0,
+    psin:0,
+    rewards:0,
+    out:0,
+    net_loss:0,
+    breakeven:0
+  }
+  getJars().forEach(j => {
+    let tvlNum = tvlData[j.name]
+    result.tvl += tvlNum
+
+    let performance = Number(perf[j.name ]) / 100
+    let yieldDollars = roundTo2Dec((tvlNum * performance) / 52)
+    result.yieldDollars += Number(yieldDollars)
+
+    let psin = yieldDollars * 0.275;
+    result.psin += psin
+
+    let pickle_rewards = j.reward_perc
+    result.rewards += pickle_rewards
+    result.out += (pickle_rewards * one_percent_rewards)
+
+    let net_loss = Math.abs(psin - (pickle_rewards * one_percent_rewards))
+    result.net_loss += net_loss
+    let breakeven_tvl = ((net_loss/psin) * tvlNum) + tvlNum
+    result.breakeven += breakeven_tvl
+
+  })
+  return result
 }
 
 export function getPerformance(jar_name) {

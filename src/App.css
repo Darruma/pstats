@@ -79,6 +79,9 @@ body {
   width: 100px;
   margin-top: 0px;
 }
+.total {
+  font-weight: bold;
+}
 .tvl-info {
   display: flex;
   flex-direction: column;
