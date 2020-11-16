@@ -48,7 +48,7 @@ class App extends Component {
       perfs.forEach(perfData => {
         perfData.result.then(data => {
           let p = this.state.performance
-          p[perfData.name] = (data.thirtyDay.toFixed(2))
+          p[perfData.name] =  (data.thirtyDay)
           this.setState({performance:p})
 
         })
@@ -106,7 +106,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="pickle-color">
-          <div className="pickle-title">Pickle Pool Analysis</div>
+          <div className="pickle-title">Weekly Pickle Pool Analysis</div>
         </div>
         <div className="container">
           <div className="info">
@@ -163,7 +163,7 @@ class App extends Component {
          {getJars().map(jar => {
 
            let tvlNum = this.state.tvl[jar.name]
-           let performance = Number(this.state.performance[jar.name ]) / 100
+           let performance = (this.state.performance[jar.name ]) / 100
            let yieldDollars = roundTo2Dec((tvlNum * performance) / 52)
            let psin = yieldDollars * 0.275;
            let pickle_rewards = this.state.percent_rewards[jar.name]
@@ -174,7 +174,7 @@ class App extends Component {
            <p className="jars">{jar.label}</p>
            <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl[jar.name]))}</p>
 
-           <p className="jars">{performance * 100}%</p>
+           <p className="jars">{(performance * 100).toFixed(2)}%</p>
            <p className="green jars">${numberWithCommas(yieldDollars)}</p>
            <p className="green jars">${numberWithCommas(roundTo2Dec(psin))}</p>
            <p className="jars"> {pickle_rewards}% </p>
