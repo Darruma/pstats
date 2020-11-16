@@ -16,7 +16,6 @@ class App extends Component {
       "cdai": "0",
       "3poolcrv": "0",
       "renbtccrv": "0",
-      "pickle-eth": "0",
     },
     performance:{
     },
@@ -49,7 +48,7 @@ class App extends Component {
       perfs.forEach(perfData => {
         perfData.result.then(data => {
           let p = this.state.performance
-          p[perfData.name] = roundTo2Dec(data.thirtyDay)
+          p[perfData.name] = (data.thirtyDay.toFixed(2))
           this.setState({performance:p})
 
         })
@@ -155,7 +154,7 @@ class App extends Component {
 
            <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
            <p className="red jars">${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
-           <p className=" jars">-${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
+           <p className=" jars">(${numberWithCommas(roundTo2Dec(liquidity_out))})</p>
           
           <p className="blue jars">$0</p>
 
@@ -180,7 +179,7 @@ class App extends Component {
            <p className="green jars">${numberWithCommas(roundTo2Dec(psin))}</p>
            <p className="jars"> {pickle_rewards}% </p>
            <p className="jars red">${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))}</p>
-           <p className=" jars">-${numberWithCommas(roundTo2Dec(net_loss))}</p>
+           <p className=" jars">(${numberWithCommas(roundTo2Dec(net_loss))})</p>
           <p className="blue jars">${numberWithCommas(roundTo2Dec(breakeven_tvl))}</p>
 
          </div>)
@@ -193,7 +192,7 @@ class App extends Component {
             <p className=" green jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
             <p className="jars "> {totals.rewards}%</p>
             <p className="jars red">${numberWithCommas(roundTo2Dec(totals.out))} </p>
-            <p className="jars ">-${numberWithCommas(roundTo2Dec(totals.net_loss))}</p>
+            <p className="jars ">(${numberWithCommas(roundTo2Dec(totals.net_loss))})</p>
             <p className="jars blue">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
          </div>
         
