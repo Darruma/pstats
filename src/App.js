@@ -38,6 +38,13 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.refreshStats()
+    setInterval(() => {
+      this.refreshStats()
+    }, 60000)
+  }
+
+  refreshStats = () => {
     this.getPicklePrice();
     this.calculateWeek();
     this.getWeeklyEmissions();
