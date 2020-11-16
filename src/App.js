@@ -1,6 +1,13 @@
 import "./App.css";
 import React, { Component } from "react";
-import { dateDiffInDays, numberWithCommas, getPerformance,getJars,roundTo2Dec, getJarTotals} from "./utils";
+import {
+  dateDiffInDays,
+  numberWithCommas,
+  getPerformance,
+  getJars,
+  roundTo2Dec,
+  getJarTotals,
+} from "./utils";
 import schedule from "./schedule";
 class App extends Component {
   state = {
@@ -8,28 +15,26 @@ class App extends Component {
     week: 11,
     weekly_emissions: "0",
     tvl: {
-      "liquidity": "0",
+      liquidity: "0",
       "wbtc-eth": "0",
       "dai-eth": "0",
       "usdc-eth": "0",
       "usdt-eth": "0",
-      "cdai": "0",
+      cdai: "0",
       "3poolcrv": "0",
-      "renbtccrv": "0",
+      renbtccrv: "0",
     },
-    performance:{
-    },
-    percent_rewards:{
-      "liquidity": "65",
-      "wbtc-eth": "5",
-      "dai-eth": "4",
-      "usdc-eth": "4",
-      "usdt-eth": "4",
-      "cdai": "6",
+    performance: {},
+    percent_rewards: {
+      liquidity: "0",
+      "wbtc-eth": "0",
+      "dai-eth": "0",
+      "usdc-eth": "0",
+      "usdt-eth": "0",
+      cdai: "0",
       "3poolcrv": "4",
-      "renbtccrv": "8",
-
-    }
+      renbtccrv: "0",
+    },
   };
 
   componentDidMount() {
@@ -37,26 +42,41 @@ class App extends Component {
     this.calculateWeek();
     this.getWeeklyEmissions();
     this.getTVL();
-    this.getJarPerformance()
+    this.getJarPerformance();
+    this.getPercentRewards();
   }
 
   getJarPerformance = () => {
-    let perfPromises = getJars().map(j => {
-      return getPerformance(j.name)
-    })
-    Promise.all(perfPromises).then(perfs => {
-      perfs.forEach(perfData => {
-        perfData.result.then(data => {
-          let p = this.state.performance
-          p[perfData.name] =  (data.thirtyDay)
-          this.setState({performance:p})
+    let perfPromises = getJars().map((j) => {
+      return getPerformance(j.name);
+    });
+    Promise.all(perfPromises).then((perfs) => {
+      perfs.forEach((perfData) => {
+        perfData.result.then((data) => {
+          let p = this.state.performance;
+          p[perfData.name] = data.thirtyDay;
+          this.setState({ performance: p });
+        });
+      });
+    });
+  };
 
-        })
-
-      })
-    })
-
-  }
+  getPercentRewards = () => {
+    fetch("https://api.pickle-jar.info/protocol/farm")
+      .then((response) => response.json())
+      .then((result) => {
+        let newResult = {};
+        delete result["picklePerBlock"];
+        for (let [key, value] of Object.entries(result)) {
+          if (key == "pickle-eth") {
+            newResult["liquidity"] = value.allocShare * 100;
+          } else {
+            newResult[key] = value.allocShare * 100;
+          }
+        }
+        this.setState({percent_rewards:newResult})
+      });
+  };
 
   getTVL = () => {
     fetch("https://api.pickle-jar.info/protocol/value")
@@ -90,23 +110,28 @@ class App extends Component {
       );
   };
   render() {
-     let emissions = +this.state.weekly_emissions.replace(',', '')
-    let rewards = Number(this.state.pickle_price) * emissions
+    let emissions = +this.state.weekly_emissions.replace(",", "");
+    let rewards = Number(this.state.pickle_price) * emissions;
     let one_percent_rewards = 0.01 * rewards;
-    let liquidity_out = this.state.percent_rewards["liquidity"] * one_percent_rewards
-    let totals = getJarTotals(this.state.tvl,this.state.performance,one_percent_rewards,this.state.percent_rewards,
+    let liquidity_out =
+      this.state.percent_rewards["liquidity"] * one_percent_rewards;
+    let totals = getJarTotals(
+      this.state.tvl,
+      this.state.performance,
+      one_percent_rewards,
+      this.state.percent_rewards,
       {
         tvl: this.state.tvl["liquidity"],
         rewards: Number(this.state.percent_rewards["liquidity"]),
         out: liquidity_out,
-        net_loss:liquidity_out
+        net_loss: liquidity_out,
+      }
+    );
 
-      })
-   
     return (
       <div className="App">
         <div className="pickle-color">
-          <div className="pickle-title">Weekly Pickle Pool Analysis</div>
+          <div className="pickle-title">Weekly Pickle Pool Analysis 🥒</div>
         </div>
         <div className="container">
           <div className="info">
@@ -123,11 +148,15 @@ class App extends Component {
           </div>
           <div className="info">
             <div className="info-name">Total Rewards:</div>
-            <div className="info-value">${numberWithCommas(roundTo2Dec(rewards))}</div>
+            <div className="info-value">
+              ${numberWithCommas(roundTo2Dec(rewards))}
+            </div>
           </div>
           <div className="info">
             <div className="info-name">1% of Total Rewards:</div>
-            <div className="info-value">${numberWithCommas(roundTo2Dec(one_percent_rewards))}</div>
+            <div className="info-value">
+              ${numberWithCommas(roundTo2Dec(one_percent_rewards))}
+            </div>
           </div>
         </div>
 
@@ -144,61 +173,92 @@ class App extends Component {
             <p className="label">Breakeven TVL </p>
           </div>
           <div className="table-row">
-           <p className="jars">PICKLE/ETH</p>
+            <p className="jars">PICKLE/ETH</p>
 
-           <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl["liquidity"]))}</p>
-           <p className="jars">0%</p>
+            <p className="jars">
+              ${numberWithCommas(roundTo2Dec(this.state.tvl["liquidity"]))}
+            </p>
+            <p className="jars">0%</p>
 
-           <p className="green jars">$0</p>
-           <p className="green jars">$0</p>
+            <p className="green jars">$0</p>
+            <p className="green jars">$0</p>
 
-           <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
-           <p className="jars">(${numberWithCommas(roundTo2Dec(liquidity_out))})</p>
-           <p className=" jars">(${numberWithCommas(roundTo2Dec(liquidity_out))})</p>
-          
-          <p className="blue jars">$0</p>
+            <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
+            <p className="jars">
+              (${numberWithCommas(roundTo2Dec(liquidity_out))})
+            </p>
+            <p className=" jars">
+              (${numberWithCommas(roundTo2Dec(liquidity_out))})
+            </p>
 
-
+            <p className="blue jars">$0</p>
           </div>
-         {getJars().map(jar => {
+          {getJars().map((jar) => {
+            let tvlNum = this.state.tvl[jar.name];
+            let performance = this.state.performance[jar.name] / 100;
+            let yieldDollars = roundTo2Dec((tvlNum * performance) / 52);
+            let psin = yieldDollars * 0.275;
+            let pickle_rewards = this.state.percent_rewards[jar.name];
+            let net_loss = Math.abs(
+              psin - pickle_rewards * one_percent_rewards
+            );
+            let breakeven_tvl = (net_loss / psin) * tvlNum + tvlNum;
 
-           let tvlNum = this.state.tvl[jar.name]
-           let performance = (this.state.performance[jar.name ]) / 100
-           let yieldDollars = roundTo2Dec((tvlNum * performance) / 52)
-           let psin = yieldDollars * 0.275;
-           let pickle_rewards = this.state.percent_rewards[jar.name]
-           let net_loss = Math.abs(psin - (pickle_rewards * one_percent_rewards))
-           let breakeven_tvl = ((net_loss/psin) * tvlNum) + tvlNum
+            return (
+              <div key={jar.name} className="table-row">
+                <p className="jars">{jar.label}</p>
+                <p className="jars">
+                  ${numberWithCommas(roundTo2Dec(this.state.tvl[jar.name]))}
+                </p>
 
-           return  (<div key={jar.name} className="table-row">
-           <p className="jars">{jar.label}</p>
-           <p className="jars">${numberWithCommas(roundTo2Dec(this.state.tvl[jar.name]))}</p>
-
-           <p className="jars">{(performance * 100).toFixed(2)}%</p>
-           <p className="green jars">${numberWithCommas(yieldDollars)}</p>
-           <p className="green jars">${numberWithCommas(roundTo2Dec(psin))}</p>
-           <p className="jars"> {pickle_rewards}% </p>
-           <p className="jars">(${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))})</p>
-           <p className=" jars">(${numberWithCommas(roundTo2Dec(net_loss))})</p>
-          <p className="blue jars">${numberWithCommas(roundTo2Dec(breakeven_tvl))}</p>
-
-         </div>)
-         })}
-         <div className="table-row total">
+                <p className="jars">{(performance * 100).toFixed(2)}%</p>
+                <p className="green jars">${numberWithCommas(yieldDollars)}</p>
+                <p className="green jars">
+                  ${numberWithCommas(roundTo2Dec(psin))}
+                </p>
+                <p className="jars"> {pickle_rewards}% </p>
+                <p className="jars">
+                  ($
+                  {numberWithCommas(
+                    roundTo2Dec(pickle_rewards * one_percent_rewards)
+                  )}
+                  )
+                </p>
+                <p className=" jars">
+                  (${numberWithCommas(roundTo2Dec(net_loss))})
+                </p>
+                <p className="blue jars">
+                  ${numberWithCommas(roundTo2Dec(breakeven_tvl))}
+                </p>
+              </div>
+            );
+          })}
+          <div className="table-row total">
             <p className="jars"> TOTAL</p>
-            <p className="jars"> ${numberWithCommas(roundTo2Dec(totals.tvl))} </p>
+            <p className="jars">
+              {" "}
+              ${numberWithCommas(roundTo2Dec(totals.tvl))}{" "}
+            </p>
             <p className="jars">N/A</p>
-            <p className=" green jars">${numberWithCommas(roundTo2Dec(totals.yieldDollars))}</p>
-            <p className=" green jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
+            <p className=" green jars">
+              ${numberWithCommas(roundTo2Dec(totals.yieldDollars))}
+            </p>
+            <p className=" green jars">
+              {" "}
+              ${numberWithCommas(roundTo2Dec(totals.psin))}
+            </p>
             <p className="jars "> {totals.rewards}%</p>
-            <p className="jars">(${numberWithCommas(roundTo2Dec(totals.out))}) </p>
-            <p className="jars ">(${numberWithCommas(roundTo2Dec(totals.net_loss))})</p>
-            <p className="jars blue">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
-         </div>
-        
-         </div>
-
-
+            <p className="jars">
+              (${numberWithCommas(roundTo2Dec(totals.out))}){" "}
+            </p>
+            <p className="jars ">
+              (${numberWithCommas(roundTo2Dec(totals.net_loss))})
+            </p>
+            <p className="jars blue">
+              ${numberWithCommas(roundTo2Dec(totals.breakeven))}
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
