@@ -141,7 +141,7 @@ class App extends Component {
             <p className="label">Rewards %</p>
             <p className="label">Rewards Cost</p>
             <p className="label">Net Margin </p>
-            <p className="label">Breakeven </p>
+            <p className="label">Breakeven TVL </p>
           </div>
           <div className="table-row">
            <p className="jars">PICKLE/ETH</p>
@@ -153,7 +153,7 @@ class App extends Component {
            <p className="green jars">$0</p>
 
            <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
-           <p className="red jars">${numberWithCommas(roundTo2Dec(liquidity_out))}</p>
+           <p className="jars">(${numberWithCommas(roundTo2Dec(liquidity_out))})</p>
            <p className=" jars">(${numberWithCommas(roundTo2Dec(liquidity_out))})</p>
           
           <p className="blue jars">$0</p>
@@ -178,7 +178,7 @@ class App extends Component {
            <p className="green jars">${numberWithCommas(yieldDollars)}</p>
            <p className="green jars">${numberWithCommas(roundTo2Dec(psin))}</p>
            <p className="jars"> {pickle_rewards}% </p>
-           <p className="jars red">${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))}</p>
+           <p className="jars">(${numberWithCommas(roundTo2Dec(pickle_rewards * one_percent_rewards))})</p>
            <p className=" jars">(${numberWithCommas(roundTo2Dec(net_loss))})</p>
           <p className="blue jars">${numberWithCommas(roundTo2Dec(breakeven_tvl))}</p>
 
@@ -191,7 +191,7 @@ class App extends Component {
             <p className=" green jars">${numberWithCommas(roundTo2Dec(totals.yieldDollars))}</p>
             <p className=" green jars"> ${numberWithCommas(roundTo2Dec(totals.psin))}</p>
             <p className="jars "> {totals.rewards}%</p>
-            <p className="jars red">${numberWithCommas(roundTo2Dec(totals.out))} </p>
+            <p className="jars">(${numberWithCommas(roundTo2Dec(totals.out))}) </p>
             <p className="jars ">(${numberWithCommas(roundTo2Dec(totals.net_loss))})</p>
             <p className="jars blue">${numberWithCommas(roundTo2Dec(totals.breakeven))}</p>
          </div>
