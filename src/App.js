@@ -61,7 +61,7 @@ class App extends Component {
       perfs.forEach((perfData) => {
         perfData.result.then((data) => {
           let p = this.state.performance;
-          p[perfData.name] = data.thirtyDay;
+          p[perfData.name] = data.threeDay;
           this.setState({ performance: p });
         });
       });
@@ -72,12 +72,10 @@ class App extends Component {
     fetch("https://api.pickle-jar.info/protocol/farm")
       .then((response) => response.json())
       .then((result) => {
-        let newResult = {};
-        delete result["picklePerBlock"];
         for (let [key, value] of Object.entries(result)) {
-            newResult[key] = value.allocShare * 100;
+            result[key] = value.allocShare * 100;
         }
-        this.setState({percent_rewards:newResult})
+        this.setState({percent_rewards:result})
       });
   };
 
@@ -117,7 +115,6 @@ class App extends Component {
     let rewards = Number(this.state.pickle_price) * emissions;
     let one_percent_rewards = 0.01 * rewards;
     let liquidity_out = this.state.percent_rewards["pickle-eth"] * one_percent_rewards;
-    console.log(this.state.one_percent_rewards)
     let totals = getJarTotals(
       this.state.tvl,
       this.state.performance,
@@ -155,7 +152,12 @@ class App extends Component {
               ${numberWithCommas(roundTo2Dec(rewards))}
             </div>
           </div>
-         
+          <div className="info">
+            <div className="info-name">1% of Total Rewards:</div>
+            <div className="info-value">
+              ${numberWithCommas(roundTo2Dec(one_percent_rewards))}
+            </div>
+          </div>
         </div>
 
         <div className="table-container">
