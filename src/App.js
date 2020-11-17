@@ -15,7 +15,7 @@ class App extends Component {
     week: 11,
     weekly_emissions: "0",
     tvl: {
-      liquidity: "0",
+      "pickle-eth": "0",
       "wbtc-eth": "0",
       "dai-eth": "0",
       "usdc-eth": "0",
@@ -26,7 +26,7 @@ class App extends Component {
     },
     performance: {},
     percent_rewards: {
-      liquidity: "0",
+      "pickle-eth": "0",
       "wbtc-eth": "0",
       "dai-eth": "0",
       "usdc-eth": "0",
@@ -75,11 +75,7 @@ class App extends Component {
         let newResult = {};
         delete result["picklePerBlock"];
         for (let [key, value] of Object.entries(result)) {
-          if (key == "pickle-eth") {
-            newResult["liquidity"] = value.allocShare * 100;
-          } else {
             newResult[key] = value.allocShare * 100;
-          }
         }
         this.setState({percent_rewards:newResult})
       });
@@ -120,16 +116,15 @@ class App extends Component {
     let emissions = +this.state.weekly_emissions.replace(",", "");
     let rewards = Number(this.state.pickle_price) * emissions;
     let one_percent_rewards = 0.01 * rewards;
-    let liquidity_out =
-      this.state.percent_rewards["liquidity"] * one_percent_rewards;
+    let liquidity_out = this.state.percent_rewards["pickle-eth"] * one_percent_rewards;
     let totals = getJarTotals(
       this.state.tvl,
       this.state.performance,
       one_percent_rewards,
       this.state.percent_rewards,
       {
-        tvl: this.state.tvl["liquidity"],
-        rewards: Number(this.state.percent_rewards["liquidity"]),
+        tvl: this.state.tvl["pickle-eth"],
+        rewards: Number(this.state.percent_rewards["pickle-eth"]),
         out: liquidity_out,
         net_loss: liquidity_out,
       }
@@ -183,14 +178,14 @@ class App extends Component {
             <p className="jars">PICKLE/ETH</p>
 
             <p className="jars">
-              ${numberWithCommas(roundTo2Dec(this.state.tvl["liquidity"]))}
+              ${numberWithCommas(roundTo2Dec(this.state.tvl["pickle-eth"]))}
             </p>
             <p className="jars">0%</p>
 
             <p className="green jars">$0</p>
             <p className="green jars">$0</p>
 
-            <p className="jars"> {this.state.percent_rewards["liquidity"]}%</p>
+            <p className="jars"> {this.state.percent_rewards["pickle-eth"]}%</p>
             <p className="jars">
               (${numberWithCommas(roundTo2Dec(liquidity_out))})
             </p>
@@ -200,12 +195,17 @@ class App extends Component {
 
             <p className="blue jars">$0</p>
           </div>
-          {getJars().map((jar) => {
+          {getJars().filter(jar => {
+            return this.state.percent_rewards[jar.name] >0
+
+            
+          }).map((jar) => {
             let tvlNum = this.state.tvl[jar.name];
             let performance = this.state.performance[jar.name] / 100;
             let yieldDollars = roundTo2Dec((tvlNum * performance) / 52);
             let psin = yieldDollars * 0.275;
             let pickle_rewards = this.state.percent_rewards[jar.name];
+            
             let net_loss = Math.abs(
               psin - pickle_rewards * one_percent_rewards
             );
