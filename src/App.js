@@ -20,9 +20,9 @@ class App extends Component {
       "dai-eth": "0",
       "usdc-eth": "0",
       "usdt-eth": "0",
-      cdai: "0",
+      "cdai": "0",
       "3poolcrv": "0",
-      renbtccrv: "0",
+      "renbtccrv": "0",
     },
     performance: {},
     percent_rewards: {
@@ -31,9 +31,9 @@ class App extends Component {
       "dai-eth": "0",
       "usdc-eth": "0",
       "usdt-eth": "0",
-      cdai: "0",
+      "cdai": "0",
       "3poolcrv": "4",
-      renbtccrv: "0",
+     "renbtccrv": "0",
     },
   };
 
@@ -117,6 +117,7 @@ class App extends Component {
     let rewards = Number(this.state.pickle_price) * emissions;
     let one_percent_rewards = 0.01 * rewards;
     let liquidity_out = this.state.percent_rewards["pickle-eth"] * one_percent_rewards;
+    console.log(this.state.one_percent_rewards)
     let totals = getJarTotals(
       this.state.tvl,
       this.state.performance,
@@ -154,12 +155,7 @@ class App extends Component {
               ${numberWithCommas(roundTo2Dec(rewards))}
             </div>
           </div>
-          <div className="info">
-            <div className="info-name">1% of Total Rewards:</div>
-            <div className="info-value">
-              ${numberWithCommas(roundTo2Dec(one_percent_rewards))}
-            </div>
-          </div>
+         
         </div>
 
         <div className="table-container">
