@@ -152,12 +152,7 @@ class App extends Component {
               ${numberWithCommas(roundTo2Dec(rewards))}
             </div>
           </div>
-          <div className="info">
-            <div className="info-name">1% of Total Rewards:</div>
-            <div className="info-value">
-              ${numberWithCommas(roundTo2Dec(one_percent_rewards))}
-            </div>
-          </div>
+         
         </div>
 
         <div className="table-container">
