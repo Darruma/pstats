@@ -178,7 +178,13 @@ class App extends Component {
             <p className="green jars">$0</p>
             <p className="green jars">$0</p>
 
-            <p className="jars"> {this.state.percent_rewards["pickle-eth"]}%</p>
+            <p className="jars"> <input type="number" className="percent-change" value={this.state.percent_rewards["pickle-eth"]}
+            onChange={(e) => {
+              let new_rewards = this.state.percent_rewards
+              new_rewards["pickle-eth"] = e.target.value
+              this.setState({percent_rewards:new_rewards})
+            }}
+            /></p>
             <p className="jars">
               (${numberWithCommas(roundTo2Dec(liquidity_out))})
             </p>
@@ -216,7 +222,11 @@ class App extends Component {
                 <p className="green jars">
                   ${numberWithCommas(roundTo2Dec(psin))}
                 </p>
-                <p className="jars"> {pickle_rewards}% </p>
+                <p className="jars"> <input className="percent-change" value={pickle_rewards} onChange={(e) => {
+                  let new_rewards = this.state.percent_rewards
+                  new_rewards[jar.name] = e.target.value
+                  this.setState({percent_rewards:new_rewards})
+                } } type="number"/></p>
                 <p className="jars">
                   ($
                   {numberWithCommas(

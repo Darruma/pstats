@@ -99,3 +99,7 @@ body {
 .green {
   color: #26ff91 !important;
 }
+
+.percent-change {
+  width: 30px;
+}
