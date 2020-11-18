@@ -16,10 +16,6 @@ class App extends Component {
     weekly_emissions: "0",
     tvl: {
       "pickle-eth": "0",
-      "wbtc-eth": "0",
-      "dai-eth": "0",
-      "usdc-eth": "0",
-      "usdt-eth": "0",
       "cdai": "0",
       "3poolcrv": "0",
       "renbtccrv": "0",
@@ -27,12 +23,8 @@ class App extends Component {
     performance: {},
     percent_rewards: {
       "pickle-eth": "0",
-      "wbtc-eth": "0",
-      "dai-eth": "0",
-      "usdc-eth": "0",
-      "usdt-eth": "0",
       "cdai": "0",
-      "3poolcrv": "4",
+      "3poolcrv": "0",
      "renbtccrv": "0",
     },
   };
@@ -194,11 +186,7 @@ class App extends Component {
 
             <p className="blue jars">$0</p>
           </div>
-          {getJars().filter(jar => {
-            return this.state.percent_rewards[jar.name] >0
-
-            
-          }).map((jar) => {
+          {getJars().map((jar) => {
             let tvlNum = this.state.tvl[jar.name];
             let performance = this.state.performance[jar.name] / 100;
             let yieldDollars = roundTo2Dec((tvlNum * performance) / 52);

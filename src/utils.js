@@ -69,29 +69,17 @@ export function getPerformance(jar_name) {
   name:"renbtccrv",
 
 },
-{
-   label:"WBTC/ETH",
-   name:"wbtc-eth",
- },
+
 {
   label:"PDAI",
   name:"cdai",
 },
 {
-  label:"USDC/ETH",
-  name:"usdc-eth",
-},{
   label:"3POOL",
   name:"3poolcrv",
 },
-{
-  label:"USDT/ETH",
-  name:"usdt-eth",
-},
-{
-  label:"DAI/ETH",
-  name:"dai-eth",
-}
+
+
 ]
 
  export function getJars() {
