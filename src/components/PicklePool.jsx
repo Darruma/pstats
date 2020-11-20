@@ -150,7 +150,8 @@ function PicklePool({state,setRewards}) {
                 (${numberWithCommas(roundTo2Dec(net_loss))})
               </p>
               <p className="blue jars">
-                ${numberWithCommas(roundTo2Dec(breakeven_tvl))}
+                ${`${numberWithCommas(roundTo2Dec(breakeven_tvl))} 
+                (${(breakeven_tvl/state.tvl[jar.name]).toFixed(2)}x)`}
               </p>
             </div>
           );
@@ -174,7 +175,9 @@ function PicklePool({state,setRewards}) {
             (${numberWithCommas(roundTo2Dec(totals.net_loss))})
           </p>
           <p className="jars blue">
-            ${numberWithCommas(roundTo2Dec(totals.breakeven))}
+            ${`${numberWithCommas(roundTo2Dec(totals.breakeven))}
+             ${(totals.breakeven/totals.tvl).toFixed(2)}x`}
+            
           </p>
         </div>
       </div>
