@@ -77,7 +77,7 @@ class LiquidityAnalysis extends Component {
                 <div className=" liquid-text liquid">
                   ${(price * this.props.eth_price).toFixed(2)}
                 </div>
-                <div style={{color:"light-green"}} className=" liquid-text liquid">
+                <div style={{color:"lightGreen"}} className=" liquid-text liquid">
                    
                   {price_change.toFixed(2)}%
                 </div>
