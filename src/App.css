@@ -103,3 +103,20 @@ body {
 .percent-change {
   width: 30px;
 }
+
+.liquidity-container {
+  width: 600px !important;
+}
+.liquid-row {
+  display: flex;
+}
+.liquid {
+  
+  flex: 1;
+  padding-right: 0;
+  text-align: center;
+}
+
+.liquid-text {
+font-size: 20px;
+}
