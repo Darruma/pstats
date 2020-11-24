@@ -49,7 +49,7 @@ class App extends Component {
       perfs.forEach((perfData) => {
         perfData.result.then((data) => {
           let p = this.state.performance;
-          p[perfData.name] = data.threeDay;
+          p[perfData.name] = data.thirtyDay
           this.setState({ performance: p });
         });
       });
