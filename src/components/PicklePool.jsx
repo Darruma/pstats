@@ -179,7 +179,7 @@ function PicklePool({state,setRewards}) {
           </p>
           <p className="jars blue">
             ${`${numberWithCommas(roundTo2Dec(totals.breakeven))}
-             ${(totals.breakeven/totals.tvl).toFixed(2)}x`}
+             (${(totals.breakeven/totals.tvl).toFixed(2)}x)`}
             
           </p>
         </div>
