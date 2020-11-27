@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { numberWithCommas, roundTo2Dec } from "../utils";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 class LiquidityAnalysis extends Component {
   state = {
     liquidity: numberWithCommas(this.props.liquidity.toString()),
@@ -20,14 +20,19 @@ class LiquidityAnalysis extends Component {
         >
           Liquidity Analysis
         </div>
-       <Link style={{
-         textAlign: "center",
-         display:"inherit",
-         color:"white",
-         fontSize:"20px",
-         paddingBottom:"10px"
-       }} to="/">Pickle Pool Analysis</Link>
-       
+        <Link
+          style={{
+            textAlign: "center",
+            display: "inherit",
+            color: "white",
+            fontSize: "20px",
+            paddingBottom: "10px",
+          }}
+          to="/"
+        >
+          Pickle Pool Analysis
+        </Link>
+
         <div style={{ width: "550px" }} className="container">
           <div className="info">
             <div className="info-name">Liquidity:</div>
@@ -43,6 +48,11 @@ class LiquidityAnalysis extends Component {
               />
             </div>
           </div>
+          <div className="info">
+            <div className="info-name">Price:</div>
+            <div className="info-value">${this.props.pickle_price}</div>
+          </div>
+
           <div className="info">
             <div className="info-name">Pooled Pickle: </div>
             <div className="info-value">
@@ -77,8 +87,10 @@ class LiquidityAnalysis extends Component {
                 <div className=" liquid-text liquid">
                   ${(price * this.props.eth_price).toFixed(2)}
                 </div>
-                <div style={{color:"lightGreen"}} className=" liquid-text liquid">
-                   
+                <div
+                  style={{ color: "lightGreen" }}
+                  className=" liquid-text liquid"
+                >
                   {price_change.toFixed(2)}%
                 </div>
               </div>
@@ -104,7 +116,7 @@ class LiquidityAnalysis extends Component {
                 <div className=" liquid-text liquid">
                   ${(price * this.props.eth_price).toFixed(2)}
                 </div>
-                <div style={{color:"red"}} className=" liquid-text liquid">
+                <div style={{ color: "red" }} className=" liquid-text liquid">
                   {price_change.toFixed(2)}%
                 </div>
               </div>

@@ -117,7 +117,6 @@ class App extends Component {
             path="/"
             exact 
             render={(props) => {
-              console.log(props)
               return(<PicklePool
                 state={this.state}
                 setRewards={(rewards) =>
