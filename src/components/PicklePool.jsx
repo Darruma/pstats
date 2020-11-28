@@ -85,7 +85,6 @@ function PicklePool({state,setRewards}) {
           <p className="jars">
             {" "}
             <input
-              type="number"
               className="percent-change"
               value={state.percent_rewards["pickle-eth"]}
               onChange={(e) => {
@@ -110,9 +109,11 @@ function PicklePool({state,setRewards}) {
           let yieldDollars = roundTo2Dec((tvlNum * performance) / 52);
           let psin = yieldDollars * 0.275;
           let pickle_rewards = state.percent_rewards[jar.name];
+          
           if(pickle_rewards == undefined) {
             pickle_rewards = 0
           }
+          pickle_rewards = pickle_rewards.toString()
 
           let net_loss = Math.abs(psin - pickle_rewards * one_percent_rewards);
           let breakeven_tvl = (net_loss / psin) * tvlNum + tvlNum;
@@ -139,7 +140,6 @@ function PicklePool({state,setRewards}) {
                     new_rewards[jar.name] = e.target.value;
                     setRewards(new_rewards)
                   }}
-                  type="number"
                 />
               </p>
               <p className="jars">
