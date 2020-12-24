@@ -76,19 +76,10 @@ class App extends Component {
   };
 
   getWeeklyEmissions = () => {
-    let weekly_emissions_info = schedule.find((element) => {
-      return element.Week === this.state.week;
-    });
-    this.setState({ weekly_emissions: weekly_emissions_info["Weekly supply"] });
+    this.setState({ weekly_emissions:14592});
   };
 
-  calculateWeek = () => {
-    const original = new Date("11/13/2020");
-    let today = new Date();
-    let diffDays = dateDiffInDays(original, today);
-    let diffWeeks = Math.floor(diffDays / 7);
-    this.setState({ week: this.state.week + diffWeeks }, () => this.state);
-  };
+    
   getPicklePrice = () => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=pickle-finance&vs_currencies=usd"
