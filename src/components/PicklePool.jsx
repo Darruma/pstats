@@ -72,7 +72,7 @@ function PicklePool({state,setRewards}) {
           <p className="label">Breakeven TVL </p>
         </div>
         <div className="table-row">
-          <p className="jars">PICKLE/ETH</p>
+          <p className="jars strategy">PICKLE/ETH</p>
 
           <p className="jars">
             ${numberWithCommas(roundTo2Dec(state.tvl["pickle-eth"]))}
@@ -120,7 +120,7 @@ function PicklePool({state,setRewards}) {
 
           return (
             <div key={jar.name} className="table-row">
-              <p className="jars">{jar.label}</p>
+              <p className="jars strategy">{jar.label}</p>
               <p className="jars">
                 ${numberWithCommas(roundTo2Dec(state.tvl[jar.name]))}
               </p>

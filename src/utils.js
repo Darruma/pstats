@@ -69,15 +69,28 @@ export function getPerformance(jar_name) {
   name:"renbtccrv",
 
 },
-
-{
-  label:"PDAI",
-  name:"cdai",
-},
 {
   label:"3POOL",
   name:"3poolcrv",
 },
+{
+  label:"SLP ETH/BTC",
+  name:"slp-wbtc"
+},{
+  name:"slp-usdt",
+  label:"SLP ETH/USDT",
+},
+{
+  name:"slp-usdc",
+  label:"SLP ETH/USDC",
+},
+{
+  name:"slp-yfi",
+  label:"SLP ETH/YFI"
+}, {
+  name:"slp-dai",
+  label:"SLP ETH/DAI"
+}
 
 
 ]
