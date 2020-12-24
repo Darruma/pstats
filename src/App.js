@@ -9,7 +9,7 @@ class App extends Component {
   state = {
     pickle_price: 0,
     eth_price:0,
-    week: 11,
+    week: 16,
     weekly_emissions: "0",
     liquidity:0,
     tvl: {
@@ -34,7 +34,6 @@ class App extends Component {
   refreshStats = () => {
     this.getPicklePrice();
     this.getEthPrice();
-    this.calculateWeek();
     this.getWeeklyEmissions();
     this.getTVL();
     this.getJarPerformance();
@@ -76,10 +75,21 @@ class App extends Component {
   };
 
   getWeeklyEmissions = () => {
-    this.setState({ weekly_emissions:14592});
+    console.log(this.state.week)
+    let weekly_emissions_info = schedule.find((element) => {
+      return element.Week === this.state.week;
+    });
+    console.log(weekly_emissions_info)
+    this.setState({ weekly_emissions: weekly_emissions_info["Weekly supply"] });
   };
 
-    
+  calculateWeek = () => {
+    const original = new Date("11/13/2020");
+    let today = new Date();
+    let diffDays = dateDiffInDays(original, today);
+    let diffWeeks = Math.floor(diffDays / 7);
+    this.setState({ week: this.state.week + diffWeeks }, () => this.state);
+  };
   getPicklePrice = () => {
     fetch(
       "https://api.coingecko.com/api/v3/simple/price?ids=pickle-finance&vs_currencies=usd"
