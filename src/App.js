@@ -21,9 +21,9 @@ class App extends Component {
     performance: {},
     percent_rewards: {
       "pickle-eth": "0",
-      cdai: "0",
       "3poolcrv": "0",
       renbtccrv: "0",
+      "bac-dai":"0"
     },
   };
 
@@ -65,7 +65,7 @@ class App extends Component {
         for (let [key, value] of Object.entries(result)) {
           result[key] = value.allocShare * 100;
         }
-        this.setState({ percent_rewards: result });
+        this.setState({ percent_rewards: {...this.state.percent_rewards,...result} });
       });
   };
 
