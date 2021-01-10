@@ -28,7 +28,7 @@ export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liqui
     net_loss:liquidity.net_loss,
     breakeven:0
   }
-  getJars().filter(jar => perc_rewards[jar.name] > 0 ).forEach(j => {
+  getJars().forEach(j => {
     let tvlNum = tvlData[j.name]
     result.tvl += tvlNum
     let performance = Number(perf[j.name ]) / 100
@@ -90,6 +90,9 @@ export function getPerformance(jar_name) {
 }, {
   name:"slp-dai",
   label:"SLP ETH/DAI"
+}, {
+  name:"bac-dai",
+  label:"UNI BAC/DAI"
 }
 
 
