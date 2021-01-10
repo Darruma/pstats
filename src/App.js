@@ -9,7 +9,7 @@ class App extends Component {
   state = {
     pickle_price: 0,
     eth_price:0,
-    week: 16,
+    week: 1,
     weekly_emissions: "0",
     liquidity:0,
     tvl: {
@@ -30,8 +30,11 @@ class App extends Component {
   componentDidMount() {
     this.refreshStats();
   }
+  
 
-  refreshStats = () => {
+  refreshStats = async () => {
+
+    await this.calculateWeek();
     this.getPicklePrice();
     this.getEthPrice();
     this.getWeeklyEmissions();
@@ -75,7 +78,7 @@ class App extends Component {
   };
 
   getWeeklyEmissions = () => {
-    console.log(this.state.week)
+
     let weekly_emissions_info = schedule.find((element) => {
       return element.Week === this.state.week;
     });
@@ -83,12 +86,12 @@ class App extends Component {
     this.setState({ weekly_emissions: weekly_emissions_info["Weekly supply"] });
   };
 
-  calculateWeek = () => {
-    const original = new Date("11/13/2020");
+  calculateWeek = async () => {
+    const original = new Date("09/10/2020");
     let today = new Date();
     let diffDays = dateDiffInDays(original, today);
-    let diffWeeks = Math.floor(diffDays / 7);
-    this.setState({ week: this.state.week + diffWeeks }, () => this.state);
+    let weeks = Math.floor(diffDays / 7);
+    this.setState({ week: weeks })
   };
   getPicklePrice = () => {
     fetch(
