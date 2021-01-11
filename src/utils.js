@@ -93,6 +93,10 @@ export function getPerformance(jar_name) {
 }, {
   name:"bac-dai",
   label:"UNI BAC/DAI"
+},
+{
+  name:"mic-usdt",
+  label:"SLP MIC/USDT"
 }
 
 
