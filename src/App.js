@@ -23,7 +23,8 @@ class App extends Component {
       "pickle-eth": "0",
       "3poolcrv": "0",
       renbtccrv: "0",
-      "bac-dai":"0"
+      "bac-dai":"0",
+      "mic-usdt":"0"
     },
   };
 
@@ -51,7 +52,7 @@ class App extends Component {
       perfs.forEach((perfData) => {
         perfData.result.then((data) => {
           let p = this.state.performance;
-          p[perfData.name] = data.thirtyDay
+          p[perfData.name] = data.threeDay
           this.setState({ performance: p });
         });
       });

@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  dateDiffInDays,
   numberWithCommas,
-  getPerformance,
   getJars,
   roundTo2Dec,
   getJarTotals,
