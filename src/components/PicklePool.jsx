@@ -48,7 +48,7 @@ function PicklePool({state,setRewards}) {
           <div className="info-value">{state.weekly_emissions}</div>
         </div>
         <div className="info">
-          <div className="info-name">Pickle ice:</div>
+          <div className="info-name">Pickle Price:</div>
           <div className="info-value">${state.pickle_price}</div>
         </div>
         <div className="info">
