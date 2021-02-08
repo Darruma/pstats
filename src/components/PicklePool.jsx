@@ -168,7 +168,7 @@ function PicklePool({state,setRewards}) {
             {" "}
             ${numberWithCommas(roundTo2Dec(totals.psin))}
           </p>
-          <p className="jars "> {totals.rewards}%</p>
+          <p className="jars "> {roundTo2Dec(totals.rewards)}%</p>
           <p className="jars">
             (${numberWithCommas(roundTo2Dec(totals.out))}){" "}
           </p>
