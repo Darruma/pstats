@@ -97,6 +97,18 @@ export function getPerformance(jar_name) {
 {
   name:"mic-usdt",
   label:"SLP MIC/USDT"
+},
+{
+  name:"mis-usdt",
+  label:"SLP MIS/USDT"
+},
+{
+  name:"yvecrv-eth",
+  label:"yveCRV-ETH"
+},
+{
+  name:"stecrv",
+  label:"steCRV"
 }
 
 
