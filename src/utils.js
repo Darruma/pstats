@@ -32,6 +32,9 @@ export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liqui
     let tvlNum = tvlData[j.name]
     result.tvl += tvlNum
     let performance = Number(perf[j.name ]) / 100
+    if(isNaN(performance)) {
+      performance = 0
+    }
     let yieldDollars = roundTo2Dec((tvlNum * performance) / 52)
     result.yieldDollars += Number(yieldDollars)
 
@@ -42,7 +45,7 @@ export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liqui
     result.rewards += Number(pickle_rewards)
     result.out += (pickle_rewards * one_percent_rewards)
 
-    let net_loss = Math.abs(psin - (pickle_rewards * one_percent_rewards))
+    let net_loss = psin - (pickle_rewards * one_percent_rewards)
     result.net_loss += net_loss
     let breakeven_tvl = ((net_loss/psin) * tvlNum) + tvlNum
     result.breakeven += breakeven_tvl

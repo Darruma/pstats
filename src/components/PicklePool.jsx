@@ -95,8 +95,8 @@ function PicklePool({state,setRewards}) {
           <p className="jars">
             (${numberWithCommas(roundTo2Dec(liquidity_out))})
           </p>
-          <p className=" jars">
-            (${numberWithCommas(roundTo2Dec(liquidity_out))})
+          <p style={{color:'red'}} className=" jars">
+            (-${numberWithCommas(roundTo2Dec(liquidity_out))})
           </p>
 
           <p className="blue jars">$0</p>
@@ -104,6 +104,9 @@ function PicklePool({state,setRewards}) {
         {getJars().map((jar) => {
           let tvlNum = state.tvl[jar.name];
           let performance = state.performance[jar.name] / 100;
+          if(isNaN(performance)) {
+            performance = 0
+          }
           let yieldDollars = roundTo2Dec((tvlNum * performance) / 52);
           let psin = yieldDollars * 0.275;
           let pickle_rewards = state.percent_rewards[jar.name];
@@ -113,8 +116,8 @@ function PicklePool({state,setRewards}) {
           }
           pickle_rewards = pickle_rewards.toString()
 
-          let net_loss = Math.abs(psin - pickle_rewards * one_percent_rewards);
-          let breakeven_tvl = (net_loss / psin) * tvlNum + tvlNum;
+          let net_loss =(psin - pickle_rewards * one_percent_rewards);
+          let breakeven_tvl = (Math.abs(net_loss) / psin) * tvlNum + tvlNum;
 
           return (
             <div key={jar.name} className="table-row">
@@ -147,8 +150,8 @@ function PicklePool({state,setRewards}) {
                 )}
                 )
               </p>
-              <p className=" jars">
-                (${numberWithCommas(roundTo2Dec(net_loss))})
+              <p style={{color: net_loss > 0 ? '#26ff91' : 'red' }}   className=" jars">
+                ({net_loss < 0 ? '-' : ''}${numberWithCommas(roundTo2Dec(Math.abs(net_loss)))})
               </p>
               <p className="blue jars">
                 ${`${numberWithCommas(roundTo2Dec(breakeven_tvl))} 
