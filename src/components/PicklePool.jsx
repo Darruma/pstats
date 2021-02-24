@@ -117,7 +117,7 @@ function PicklePool({state,setRewards}) {
           pickle_rewards = pickle_rewards.toString()
 
           let net_loss =(psin - pickle_rewards * one_percent_rewards);
-          let breakeven_tvl = (Math.abs(net_loss) / psin) * tvlNum + tvlNum;
+          let breakeven_tvl =  (Math.abs(net_loss) / psin) * tvlNum
 
           return (
             <div key={jar.name} className="table-row">
@@ -175,13 +175,11 @@ function PicklePool({state,setRewards}) {
           <p className="jars">
             (${numberWithCommas(roundTo2Dec(totals.out))}){" "}
           </p>
-          <p className="jars ">
+          <p style={{ color:totals.net_loss > 0 ? '#26ff91' : 'red' }}className="jars ">
             (${numberWithCommas(roundTo2Dec(totals.net_loss))})
           </p>
           <p className="jars blue">
-            ${`${numberWithCommas(roundTo2Dec(totals.breakeven))}
-             (${(totals.breakeven/totals.tvl).toFixed(2)}x)`}
-            
+            N/A 
           </p>
         </div>
       </div>

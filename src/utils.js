@@ -19,13 +19,15 @@ export function roundTo2Dec(x) {
 
 
 export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liquidity) {
+
+  console.log("Calculating totals...")
   let result = {
     tvl:liquidity.tvl,
     yieldDollars:0,
     psin:0,
     rewards:liquidity.rewards,
     out:liquidity.out,
-    net_loss:liquidity.net_loss,
+    net_loss:-liquidity.net_loss,
     breakeven:0
   }
   getJars().forEach(j => {
@@ -44,10 +46,12 @@ export function getJarTotals(tvlData,perf,one_percent_rewards,perc_rewards,liqui
     let pickle_rewards = Number(perc_rewards[j.name])
     result.rewards += Number(pickle_rewards)
     result.out += (pickle_rewards * one_percent_rewards)
-
     let net_loss = psin - (pickle_rewards * one_percent_rewards)
     result.net_loss += net_loss
-    let breakeven_tvl = ((net_loss/psin) * tvlNum) + tvlNum
+
+    console.log(`Net loss ${result.net_loss}`)
+
+    let breakeven_tvl = ((net_loss/psin) * tvlNum)
     result.breakeven += breakeven_tvl
 
   })
