@@ -12,6 +12,12 @@ function PicklePool({state,setRewards}) {
   let rewards = Number(state.pickle_price) * emissions;
   let one_percent_rewards = 0.01 * rewards;
   let liquidity_out = state.percent_rewards["pickle-eth"] * one_percent_rewards;
+  let jars = getJars().sort((a,b) => {
+    let tvlNumA = state.tvl[a.name];
+    let tvlNumB = state.tvl[b.name];
+    return tvlNumB - tvlNumA
+  })
+  console.log(jars)
   let totals = getJarTotals(
     state.tvl,
     state.performance,
@@ -101,7 +107,7 @@ function PicklePool({state,setRewards}) {
 
           <p className="blue jars">$0</p>
         </div>
-        {getJars().map((jar) => {
+        {jars.map((jar) => {
           let tvlNum = state.tvl[jar.name];
           let performance = state.performance[jar.name] / 100;
           if(isNaN(performance)) {
