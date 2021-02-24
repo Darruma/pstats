@@ -61,6 +61,10 @@ function PicklePool({state,setRewards}) {
             ${numberWithCommas(roundTo2Dec(rewards))}
           </div>
         </div>
+        <div className="info">
+          <div className="info-name">Weekly Profit:</div>
+          <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.net_loss))  }</div>
+        </div>
       </div>
 
       <div className="table-container">
