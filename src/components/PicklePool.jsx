@@ -111,7 +111,7 @@ function PicklePool({state,setRewards}) {
           let psin = yieldDollars * 0.275;
           let pickle_rewards = state.percent_rewards[jar.name];
           
-          if(pickle_rewards == undefined) {
+          if(pickle_rewards === undefined) {
             pickle_rewards = 0
           }
           pickle_rewards = pickle_rewards.toString()
