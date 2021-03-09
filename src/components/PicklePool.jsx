@@ -12,6 +12,12 @@ function PicklePool({state,setRewards}) {
   let rewards = Number(state.pickle_price) * emissions;
   let one_percent_rewards = 0.01 * rewards;
   let liquidity_out = state.percent_rewards["pickle-eth"] * one_percent_rewards;
+  let jars = getJars().sort((a,b) => {
+    let tvlNumA = state.tvl[a.name];
+    let tvlNumB = state.tvl[b.name];
+    return tvlNumB - tvlNumA
+  })
+  console.log(jars)
   let totals = getJarTotals(
     state.tvl,
     state.performance,
@@ -54,6 +60,10 @@ function PicklePool({state,setRewards}) {
           <div className="info-value">
             ${numberWithCommas(roundTo2Dec(rewards))}
           </div>
+        </div>
+        <div className="info">
+          <div className="info-name">Annual Profit:</div>
+          <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.net_loss * 52))  }</div>
         </div>
       </div>
 
@@ -101,7 +111,7 @@ function PicklePool({state,setRewards}) {
 
           <p className="blue jars">$0</p>
         </div>
-        {getJars().map((jar) => {
+        {jars.map((jar) => {
           let tvlNum = state.tvl[jar.name];
           let performance = state.performance[jar.name] / 100;
           if(isNaN(performance)) {
@@ -117,7 +127,7 @@ function PicklePool({state,setRewards}) {
           pickle_rewards = pickle_rewards.toString()
 
           let net_loss =(psin - pickle_rewards * one_percent_rewards);
-          let breakeven_tvl = (Math.abs(net_loss) / psin) * tvlNum + tvlNum;
+          let breakeven_tvl =  (Math.abs(net_loss) / psin) * tvlNum
 
           return (
             <div key={jar.name} className="table-row">
@@ -175,13 +185,11 @@ function PicklePool({state,setRewards}) {
           <p className="jars">
             (${numberWithCommas(roundTo2Dec(totals.out))}){" "}
           </p>
-          <p className="jars ">
+          <p style={{ color:totals.net_loss > 0 ? '#26ff91' : 'red' }}className="jars ">
             (${numberWithCommas(roundTo2Dec(totals.net_loss))})
           </p>
           <p className="jars blue">
-            ${`${numberWithCommas(roundTo2Dec(totals.breakeven))}
-             (${(totals.breakeven/totals.tvl).toFixed(2)}x)`}
-            
+            N/A 
           </p>
         </div>
       </div>
