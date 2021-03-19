@@ -26,6 +26,7 @@ class App extends Component {
       "bac-dai":"0",
       "mic-usdt":"0"
     },
+    pickle_cap:0
   };
 
   componentDidMount() {
@@ -36,6 +37,7 @@ class App extends Component {
   refreshStats = async () => {
 
     await this.calculateWeek();
+    this.getPickleMarketCap();
     this.getPicklePrice();
     this.getEthPrice();
     this.getWeeklyEmissions();
@@ -113,6 +115,18 @@ class App extends Component {
         this.setState({ eth_price: result["ethereum"].usd })
       );
 
+  }
+
+  getPickleMarketCap = () => {
+    fetch(
+      "https://api.coingecko.com/api/v3/coins/pickle-finance/market_chart?vs_currency=usd&days=0"
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        let cap = (result["market_caps"][0][1])
+        this.setState({ pickle_cap: cap})
+      } 
+      );
   }
   render() {
     return (

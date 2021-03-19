@@ -17,7 +17,6 @@ function PicklePool({state,setRewards}) {
     let tvlNumB = state.tvl[b.name];
     return tvlNumB - tvlNumA
   })
-  console.log(jars)
   let totals = getJarTotals(
     state.tvl,
     state.performance,
@@ -30,6 +29,7 @@ function PicklePool({state,setRewards}) {
       net_loss: liquidity_out,
     }
   );
+  console.log(state.pickle_cap)
   return (
     <div >
       <div className="pickle-color">
@@ -62,9 +62,23 @@ function PicklePool({state,setRewards}) {
           </div>
         </div>
         <div className="info">
-          <div className="info-name">Annual Profit:</div>
+          <div className="info-name">Annual Profit(with Pickle Dilution):</div>
           <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.net_loss * 52))  }</div>
         </div>
+        <div className="info">
+          <div className="info-name">Annual Profit(no Pickle Dilution):</div>
+          <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.out * 52))  }</div>
+        </div>
+
+        <div className="info">
+          <div className="info-name">P/E(with Pickle Dilution):</div>
+          <div style={{color:'#26ff91'}}className="info-value">{(state.pickle_cap/(totals.net_loss * 52)).toFixed(1)  }</div>
+        </div>
+        <div className="info">
+          <div className="info-name">P/E(no Pickle Dilution):</div>
+          <div style={{color:'#26ff91'}}className="info-value">{(state.pickle_cap/(totals.out * 52)).toFixed(1)  }</div>
+        </div>
+        
       </div>
 
       <div className="table-container">
@@ -121,7 +135,7 @@ function PicklePool({state,setRewards}) {
           let psin = yieldDollars * 0.275;
           let pickle_rewards = state.percent_rewards[jar.name];
           
-          if(pickle_rewards === undefined) {
+          if(pickle_rewards == undefined) {
             pickle_rewards = 0
           }
           pickle_rewards = pickle_rewards.toString()
