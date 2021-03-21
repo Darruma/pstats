@@ -62,21 +62,21 @@ function PicklePool({state,setRewards}) {
           </div>
         </div>
         <div className="info">
-          <div className="info-name">Annual Profit(with Pickle Dilution):</div>
-          <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.net_loss * 52))  }</div>
+          <div className="info-name">Yearly Income(with Pickle Dilution):</div>
+          <div style={{color: totals.net_loss > 0 ? '#26ff91' : 'red' }} className="info-value">${numberWithCommas(roundTo2Dec(totals.net_loss * 52))  }</div>
         </div>
         <div className="info">
-          <div className="info-name">Annual Profit(no Pickle Dilution):</div>
-          <div style={{color:'#26ff91'}}className="info-value">${numberWithCommas(roundTo2Dec(totals.out * 52))  }</div>
+          <div className="info-name">Yearly Income(no Pickle Dilution):</div>
+          <div style={{color:'#26ff91'}} className="info-value">${numberWithCommas(roundTo2Dec(totals.out * 52))  }</div>
         </div>
 
         <div className="info">
           <div className="info-name">P/E(with Pickle Dilution):</div>
-          <div style={{color:'#26ff91'}}className="info-value">{(state.pickle_cap/(totals.net_loss * 52)).toFixed(1)  }</div>
+          <div style={{color: totals.net_loss > 0 ? '#26ff91' : 'red' }} className="info-value">{(state.pickle_cap/(totals.net_loss * 52)).toFixed(1)  }</div>
         </div>
         <div className="info">
           <div className="info-name">P/E(no Pickle Dilution):</div>
-          <div style={{color:'#26ff91'}}className="info-value">{(state.pickle_cap/(totals.out * 52)).toFixed(1)  }</div>
+          <div style={{color: totals.out > 0 ? '#26ff91' : 'red' }} className="info-value">{(state.pickle_cap/(totals.out * 52)).toFixed(1)  }</div>
         </div>
         
       </div>
